@@ -58,10 +58,10 @@ export function activate(context: vscode.ExtensionContext) {
             prompt: "请输入 ChatGPT API key", // 文本输入提示
             value: apiKey // 默认值, 默认全部选中
         }).then(value => {
-            if (!value || !value?.trim()) {
-                vscode.window.showErrorMessage("你输入的文本无效");
-                return;
-            };
+            // if (!value || !value?.trim()) {
+            //     vscode.window.showErrorMessage("你输入的文本无效");
+            //     return;
+            // };
 			context.globalState.update(Global.ChatGPT_KEY, value);
             vscode.window.showInformationMessage(`输入命令 Chat 开始使用啦`);
         })
