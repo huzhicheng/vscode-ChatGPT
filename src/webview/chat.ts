@@ -11,7 +11,6 @@ const getContent = (list: any[] = []) => {
     <head>
       <meta charset="UTF-8">
       <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' https: data: blob: vscode-remote-resource:; media-src 'none'; frame-src 'self' vscode-webview: https://*.vscode-webview-test.com; object-src 'self'; script-src * 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https:; font-src 'self' https: vscode-remote-resource:;">
-      <link rel="icon" type="image/svg+xml" href="https://i.328888.xyz/2023/04/23/i5KOtZ.png">
       <title>ChatGPT</title>
       <style>
         pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;background:#282c34}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}
@@ -358,15 +357,13 @@ const getContent = (list: any[] = []) => {
 };
 let currentPanel: vscode.WebviewPanel | undefined = undefined;
 async function chatUI(context: vscode.ExtensionContext) {
-  //const list = await FundService.getRankFund();
-  //const content = fundRankHtmlTemp(list);
-  const content = "hello chatgpt";
+
   if (currentPanel) {
     currentPanel.reveal(vscode.ViewColumn.One);
   } else {
     currentPanel = vscode.window.createWebviewPanel(
       'chatgpt', // Identifies the type of the webview. Used internally
-      '你知道吗', // Title of the panel displayed to the user
+      'ChatGPT', // Title of the panel displayed to the user
       vscode.ViewColumn.One, // Editor column to show the new webview panel in.
       {
         enableScripts: true,
@@ -412,13 +409,6 @@ async function chatUI(context: vscode.ExtensionContext) {
     );
 
     const apiKey = context.globalState.get<string>(Global.ChatGPT_KEY) || '';
-    context.globalState.update('key', 'value');
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      }
-    };
 
     let chatContext: {}[] = [];
     function setLastAnwser(context:String) {

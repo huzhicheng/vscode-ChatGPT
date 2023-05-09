@@ -16,7 +16,27 @@ export function activate(context: vscode.ExtensionContext) {
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 
-	let disposable = vscode.commands.registerCommand('fengzheng.chatgpt', () => chatUI(context));
+	let disposable = vscode.commands.registerCommand('fengzheng.chatgpt', () => {
+        const apiKey = context.globalState.get<string>(Global.ChatGPT_KEY) || '';
+        if(apiKey.trim()==='') {
+            vscode.window.showInputBox({
+                ignoreFocusOut: true, // 当焦点移动到编辑器的另一部分或另一个窗口时, 保持输入框打开
+                password: false, // 为 true 就表示是密码类型
+                prompt: "请输入 ChatGPT API key", // 文本输入提示
+                value: apiKey // 默认值, 默认全部选中
+            }).then(value => {
+                if (!value || !value?.trim()) {
+                    vscode.window.showErrorMessage("你输入的文本无效");
+                    return;
+                };
+                context.globalState.update(Global.ChatGPT_KEY, value);
+                chatUI(context);
+            }) 
+        }else {
+            chatUI(context);
+        }
+        
+    });
 	context.subscriptions.push(disposable);
 
     // 创建一个状态栏按钮
@@ -54,9 +74,9 @@ export function activate(context: vscode.ExtensionContext) {
 // This method is called when your extension is deactivated
 export function deactivate(context: vscode.ExtensionContext) {
     // 注册插件被销毁时的清理操作
-  context.subscriptions.push({
-    dispose: () => {
-      statusBarItem.dispose();
-    }
-  });
+//   context.subscriptions.push({
+//     dispose: () => {
+//       statusBarItem.dispose();
+//     }
+//   });
  }

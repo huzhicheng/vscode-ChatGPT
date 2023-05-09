@@ -1,17 +1,21 @@
 {
   "name": "fengzheng",
-  "displayName": "chatgpt-mini",
-  "description": "a mini chatgpt client",
-  "version": "0.0.1",
+  "displayName": "mini ChatGPT",
+  "description": "一个简单的 ChatGPT VS Code 插件",
+  "version": "1.0.0",
   "author": "公众号：古时的风筝",
   "engines": {
     "vscode": "^1.77.0"
   },
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/huzhicheng/vscode-ChatGPT"
+  },
   "categories": [
     "Other"
   ],
-  "icon": "https://i.328888.xyz/2023/05/08/i1gKVN.png",
+  "icon": "resources/icon.png",
   "publisher": "fengzheng",
   "activationEvents": [],
   "main": "./dist/extension.js",
@@ -21,8 +25,8 @@
         "command": "fengzheng.chatgpt",
         "title": "Chat",
         "icon": {
-          "light": "resources/chat.svg",
-          "dark": "resources/chat.svg"
+          "light": "resources/cat.svg",
+          "dark": "resources/cat.svg"
         }
       },
       {
