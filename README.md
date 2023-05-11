@@ -38,7 +38,10 @@
 5. 之后就可以使用啦
 ![](https://hexo.moonkite.cn/blog/20230509112311.png)
 
-6. 如果之后想更换 ChatGPT 的 API key，在命令面板中输入 `ChatGPT API` 即可。
+6. 可以选择 GPT-3.5 或 GPT-4，当然了，如果你要用 GPT-4，必须要有 GPT-4的权限。
+[GPT-4申请地址](https://openai.com/waitlist/gpt-4-api)
+
+7. 如果之后想更换 ChatGPT 的 API key，在命令面板中输入 `ChatGPT API` 即可。
 
 ## 一点点使用建议
 
