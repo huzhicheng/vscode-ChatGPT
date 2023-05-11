@@ -2,10 +2,10 @@
   "name": "code-chatgpt-assistant",
   "displayName": "mini ChatGPT",
   "description": "一个简单的 ChatGPT VS Code 插件",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "公众号：古时的风筝",
   "engines": {
-    "vscode": "^1.77.0"
+    "vscode": "^1.66.0"
   },
   "license": "BSD-3-Clause",
   "repository": {
@@ -50,7 +50,7 @@
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
-    "@types/vscode": "^1.77.0",
+    "@types/vscode": "^1.66.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "@vscode/test-electron": "^2.3.0",

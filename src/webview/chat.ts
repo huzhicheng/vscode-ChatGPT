@@ -57,7 +57,7 @@ const getContent = (list: any[] = []) => {
       
       #send-button {
         height: 40px;
-        width: 60px;
+        width: 90px;
         margin-left: 10px;
         align-self: flex-end;
         background-color: #007bff;
@@ -181,6 +181,29 @@ const getContent = (list: any[] = []) => {
         }
       }
         
+      .input-dropdown {
+        height: 40px;
+        width: 90px;
+        margin-left: 10px;
+        margin-bottom:20px;
+        align-self: flex-end;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        padding: 0px 5px;
+        border-radius: 4px;
+      }
+      
+      .input-dropdown:focus {
+        outline: none;
+        box-shadow: 0 0 3px 3px rgba(0, 123, 255, 0.5);
+      }
+      
+      .operation-wrapper {
+        display: flex;
+        flex-direction: column;
+      }
       </style>
       <script>
         const vscode = acquireVsCodeApi();
@@ -191,9 +214,13 @@ const getContent = (list: any[] = []) => {
           addSelfInput(text);
           const button = document.getElementById("send-button");
           button.classList.add("loading");
+          const modelType = document.querySelector("#model-type");
+          const model = modelType.value;
+
           vscode.postMessage({
             command: 'alert',
-            text: text
+            text: text,
+            model: model
           })
         }
 
@@ -234,7 +261,7 @@ const getContent = (list: any[] = []) => {
                   if(message.isEnd) {
                     vscode.postMessage({
                       command: 'giveLastAnswer',
-                      text: 'my question is:"' + input.value +'",your anwser is:"' + fullAnswer + '.'
+                      text: 'Q:' + input.value +'. A:' + fullAnswer + '.'
                     })
           
                     const button = document.getElementById("send-button");
@@ -348,7 +375,14 @@ const getContent = (list: any[] = []) => {
 
       <div id="input-box">
       <textarea id="input" placeholder="请输入你的问题"></textarea>
+      <div class="operation-wrapper">
+      <select class="input-dropdown" id="model-type">
+        <option value="gpt-3.5-turbo" selected>gpt-3.5</option>
+        <option value="gpt-4">gpt-4</option>
+      </select>
+
       <button id="send-button" onclick="send()">发送</button>
+      </div>
       </div>
       </div>
     </body>
@@ -371,7 +405,7 @@ async function chatUI(context: vscode.ExtensionContext) {
         localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'resources'))],
       } // Webview options. More on these later.
     );
- 
+
     const webview = currentPanel.webview;
     webview.html = getContent();
     currentPanel.onDidDispose(
@@ -386,7 +420,7 @@ async function chatUI(context: vscode.ExtensionContext) {
       message => {
         switch (message.command) {
           case 'alert':
-            getDataFromHttps(message.text)
+            getDataFromHttps(message.text,message.model)
               .then(data => {
                 const result = JSON.stringify(data);
                 // console.log(`获取到的数据为：${result}`);
@@ -411,26 +445,30 @@ async function chatUI(context: vscode.ExtensionContext) {
     const apiKey = context.globalState.get<string>(Global.ChatGPT_KEY) || '';
 
     let chatContext: {}[] = [];
-    function setLastAnwser(context:String) {
+    function setLastAnwser(context: String) {
       if (chatContext.length === 2) {
         chatContext.shift(); // 移除第一个元素
       }
-      chatContext.push(context); 
+      chatContext.push(context);
     }
 
-    async function getDataFromHttps(prompt: String) {
+    //let model = "gpt-4";
+    async function getDataFromHttps(prompt: string,model: string) {
       const url = 'https://api.openai.com/v1/chat/completions';
-      
-      var processingQuestion = `下面中括号部分是前两轮的问题和回答，只用作参考。[`;
-      if(chatContext!=null) {
+      console.log("model = " + model);
+
+      var processingQuestion = `前两轮的问题和回答:\`\`\``;
+      if (chatContext != null) {
         chatContext.forEach(item => {
-          processingQuestion+=item
+          processingQuestion += item
         });
       }
-      processingQuestion+=`]. 下面引号包含的这部分是真正的问题："${prompt}"`
+      processingQuestion += `\`\`\` Q："${prompt}"`
       let question = {
-        "model": "gpt-3.5-turbo",
-        "messages": [{ "role": "user", "content": processingQuestion }],
+        //"model": "gpt-3.5-turbo",
+        "model": model,
+        "messages": [{ "role": "user", "content": processingQuestion }
+          , { "role": "system", "content": "回答的开头不需要加A：" }],
         "stream": true
       };
       let postData = JSON.stringify(question);
@@ -447,7 +485,7 @@ async function chatUI(context: vscode.ExtensionContext) {
         transform(chunk, encoding, callback) {
           // 在这里进行数据转换
           const data = chunk.toString(); // 这里假设转换为字符串
-          
+
           let json = data.replace(/^data: /, '');
           const doneString = '\n\ndata: \[DONE\]\n\n';
           let isEnd = false;
@@ -461,21 +499,21 @@ async function chatUI(context: vscode.ExtensionContext) {
           //console.log(`ttt a :` +json);
           const sendData = { command: 'showAnswer', isEnd: isEnd, content: json };
           webview.postMessage(sendData);
-          
+
           this.push(data);
           callback();
         }
       });
-    
+
       response.data.pipe(transformStream);
-    
+
       let responseData = '';
       transformStream.on('data', data => {
-      
+
         //console.log(data);
         //webview.postMessage({ command: 'refactor', content: data });
       });
-    
+
       await new Promise(resolve => {
         transformStream.on('end', () => {
           // setLastAnwser(responseData);
