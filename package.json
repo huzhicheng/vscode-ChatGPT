@@ -1,8 +1,8 @@
 {
   "name": "code-chatgpt-assistant",
-  "displayName": "mini ChatGPT",
-  "description": "一个简单的 ChatGPT VS Code 插件",
-  "version": "1.1.0",
+  "displayName": "BitGPT",
+  "description": "一个简单的 ChatGPT VSCode 插件",
+  "version": "1.2.0",
   "author": "公众号：古时的风筝",
   "engines": {
     "vscode": "^1.66.0"

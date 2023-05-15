@@ -1,5 +1,6 @@
 # Change Log
 
-## [Unreleased]
 
-- Initial release
+## [Released]
+
+- v1.2.0 版本
