@@ -20,6 +20,24 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "bitGPT",
+          "title": "BitGPT",
+          "icon": "resources/cat.svg"
+        }
+      ]
+    },
+    "views": {
+      "bitGPT": [
+        {
+          "type": "webview",
+          "id": "bitGPT.chat",
+          "name": "just a code assistant"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "fengzheng.chatgpt",
