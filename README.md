@@ -27,28 +27,21 @@
 
 1. 安装好本插件，[安装](https://marketplace.visualstudio.com/items?itemName=fengzheng.code-chatgpt-assistant) 
 
-2. 点击查看->命令面板，或者使用快捷键（MacOS: Shift + Command + P，Windows:Shift + Control + P
+2. 在左侧活动栏，可以看到本插件的图标。
+![](https://hexo.moonkite.cn/blog/20230515154321.png)
 
-3. 输入 `Chat` 并回车。 
-![](https://hexo.moonkite.cn/blog/20230509111926.png)
-
-4. 如果是首次使用，会弹出提示输入框，在此输入 ChatGPT 的 API。[如何获取ChatGPT API key](#获取-chatgpt-api-key)
+3. 如果是首次使用，会弹出提示输入框，在此输入 ChatGPT 的 API。[如何获取ChatGPT API key](#获取-chatgpt-api-key)
 ![](https://hexo.moonkite.cn/blog/20230509112123.png)
 
-5. 之后就可以使用啦
+4. 之后就可以使用啦
 ![](https://hexo.moonkite.cn/blog/20230509112311.png)
 
-6. 可以选择 GPT-3.5 或 GPT-4，当然了，如果你要用 GPT-4，必须要有 GPT-4的权限。
+5. 可以选择 GPT-3.5 或 GPT-4，当然了，如果你要用 GPT-4，必须要有 GPT-4的权限。
 [GPT-4申请地址](https://openai.com/waitlist/gpt-4-api)
 ![](https://hexo.moonkite.cn/blog/20230511180831.png)
 
-7. 如果之后想更换 ChatGPT 的 API key，在命令面板中输入 `ChatGPT API` 即可。
+6. 如果之后想更换 ChatGPT 的 API key，在命令面板中输入 `ChatGPT API` 即可。
 
-## 一点点使用建议
-
-此插件只有一个 webview 实现，打开之后独占一个 tab，可以设置向左或向右拆分，然后在左侧使用此插件向 ChatGPT 提问，右侧是代码文件，这样就不用来回切换了，而且可以将代码片段一键复制，然后直接运行， 
-
-![](https://hexo.moonkite.cn/blog/chatgpt.gif)
 
 ## 获取 ChatGPT API key
 1. 先准备好科学上网，不要用亚洲节点。
