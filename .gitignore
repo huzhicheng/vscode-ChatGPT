@@ -2,3 +2,5 @@ node_modules/
 dist
 .DS_St
 *.vsix
+dist/extension.js
+dist/extension.js.map
